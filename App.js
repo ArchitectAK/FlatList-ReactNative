@@ -33,7 +33,7 @@ export default class App extends React.Component {
   fetchData = async () => {
     this.setState({ loading: true });
     const response = await fetch(
-    `https://randomuser.me/api?results=15&seed=hi`
+    'https://randomuser.me/api?results=15&seed=hi'
   );
   const json = await response.json();
     this.setState(state => ({
