@@ -8,7 +8,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, FlatList, ActivityIndicator} from 'react-native';
+import {Platform, StyleSheet, View, FlatList, ActivityIndicator} from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 
 const instructions = Platform.select({
@@ -33,7 +33,7 @@ export default class App extends React.Component {
   fetchData = async () => {
     this.setState({ loading: true });
     const response = await fetch(
-    'https://randomuser.me/api?results=15&seed=hi'
+    `https://randomuser.me/api?results=15&seed=hi&page=${this.state.page}`
   );
   const json = await response.json();
     this.setState(state => ({
