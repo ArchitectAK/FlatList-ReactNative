@@ -42,32 +42,37 @@ export default class App extends React.Component {
     }));
   };
 
+  handleEnd = () => {
+    this.setState(state => ({ page: state.page + 1 }), () => this.fetchData());
+  };
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        <List>
+          <FlatList
+            data={this.state.data}
+            keyExtractor={(x, i) => i}
+            onEndReached={() => this.handleEnd()}
+            onEndReachedThreshold={0.5}
+            ListFooterComponent={() =>
+              this.state.loading
+                ? null
+                : <ActivityIndicator size="large" animating />}
+            renderItem={({ item }) =>
+              <ListItem
+                roundAvatar
+                avatar={{ uri: item.picture.thumbnail }}
+                title={`${item.name.first} ${item.name.last}`}
+              />}
+          />
+        </List>
       </View>
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    marginTop: 15,
+  }
 });
