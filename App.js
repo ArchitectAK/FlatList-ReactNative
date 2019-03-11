@@ -29,7 +29,19 @@ export default class App extends React.Component {
   componentWillMount() {
     this.fetchData();
   }
-  
+
+  fetchData = async () => {
+    this.setState({ loading: true });
+    const response = await fetch(
+    `https://randomuser.me/api?results=15&seed=hi`
+  );
+  const json = await response.json();
+    this.setState(state => ({
+      data: [...state.data, ...json.results],
+      loading: false
+    }));
+  };
+
   render() {
     return (
       <View style={styles.container}>
