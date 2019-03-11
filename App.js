@@ -8,7 +8,8 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View, FlatList, ActivityIndicator} from 'react-native';
+import { List, ListItem } from 'react-native-elements';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -17,7 +18,18 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-export  class App extends Component {
+export default class App extends React.Component {
+
+  state = {
+    data: [],
+    page: 0,
+    loading: false,
+  };
+
+  componentWillMount() {
+    this.fetchData();
+  }
+  
   render() {
     return (
       <View style={styles.container}>
